@@ -1,2 +1,2 @@
-# Express-seminar-registration
-Backend seminar registration 
+# Express-event
+Backend event
