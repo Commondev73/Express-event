@@ -5,10 +5,10 @@ const {
 
 const getEvent = async (req, res) => {
   try {
-    const { id: eventId } = req.query
+    const eventId = req.params.id
     const event = await Event.findById(eventId)
     if (event) {
-      if (event.status === EventStatus.HIDDEN) {
+      if (event.status === EventStatus.SHOW) {
         return res.json({
           statusCode: 200,
           data: event
