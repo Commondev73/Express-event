@@ -5,7 +5,7 @@ const validate = (schema, property) => {
       if (error) {
         const { details } = error
         const message = details.map((i) => i.message).join(',')
-        res.status(400).json({ statusCode: 401, error: message })
+        res.status(400).json({ statusCode: 400, error: message })
       } else {
         next()
       }
