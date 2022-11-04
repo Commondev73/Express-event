@@ -3,6 +3,8 @@ const { Auth, Validate } = require('../middlewares')
 const { eventCreate } = require('../validations/event')
 
 module.exports = (app) => {
+  app.get('/api/event/list', Controller.getEventList)
+
   app.get('/api/event/:id', Controller.getEvent)
 
   app.get('/api/event/create-auto', Controller.eventCreateAuto)

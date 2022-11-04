@@ -3,6 +3,22 @@ const {
   DB: { Event }
 } = require('sdk-test')
 
+const getEventList = async (req, res) => {
+  try {
+    const query = {
+      status: EventStatus.SHOW
+    }
+    const event = await Event.find(query)
+    return res.json({
+      statusCode: 200,
+      data: event
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error })
+  }
+}
+
 const getEvent = async (req, res) => {
   try {
     const eventId = req.params.id
@@ -78,6 +94,7 @@ const eventCreateAuto = async (req, res) => {
   }
 }
 module.exports = {
+  getEventList,
   getEvent,
   eventCreate,
   eventCreateAuto
