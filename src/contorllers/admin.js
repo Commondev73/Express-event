@@ -80,7 +80,7 @@ const signIn = async (req, res) => {
       adminName: admin.userName,
       firstName: admin.firstName,
       lastName: admin.lastName,
-      status: admin.status,
+      status: admin.status
     }
     const token = JWT.sign(payload, Constants.SECRET_KEY, {
       expiresIn: Constants.TOKEN_EXPIRE
@@ -101,9 +101,27 @@ const signIn = async (req, res) => {
   }
 }
 
-module.exports = {
-    refreshToken,
-    signUp,
-    signIn,
+const signUpAuto = async (req, res) => {
+  try {
+    const data = { userName: 'admin', password: '123456789', firstName: 'admin', lastName: 'admin' }
+    const isDuplicate = await Admin.findOne({ userName : data.userName })
+    if (isDuplicate) {
+      return res.status(400).json({ statusCode: 400, error: 'Bad Request', message: 'duplicate username' })
+    }
+    data.password = bcrypt.hashSync(data.password, 10)
+    const admin = await Admin.create(data)
+    if (admin) {
+      return res.status(200).json({ statusCode: 200, data: { message: 'success' } })
+    }
+    return res.status(200).json({ statusCode: 200, data: { message: 'failed' } })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error })
   }
-  
+}
+module.exports = {
+  refreshToken,
+  signUp,
+  signIn,
+  signUpAuto
+}
