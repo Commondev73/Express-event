@@ -8,7 +8,7 @@ const {
 const getUserEvetList = async (req, res) => {
   try {
     const eventId = req.params.id
-    const { search, sort, page = 1, limit = 20 } = req.query
+    const { search, page = 1, limit = 20, sortBy, order } = req.query
     const query = {
       eventId: mongoose.Types.ObjectId(eventId)
     }
@@ -16,7 +16,8 @@ const getUserEvetList = async (req, res) => {
       const reg = new RegExp(search, 'i')
       query['$or'] = [{ firstName: { $regex: reg } }, { lastName: { $regex: reg } }, { phone: { $regex: reg } }]
     }
-    const userEventList = await UserEvent.getList(query, page, limit, { createdAt: -1 })
+    console.log('req.query', req.query)
+    const userEventList = await UserEvent.getList(query, page, limit, { [sortBy]: order })
     return res.status(200).json({
       statusCode: 200,
       data: userEventList
