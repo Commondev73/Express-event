@@ -3,12 +3,42 @@ const {
   DB: { Event }
 } = require('sdk-test')
 
+const getEventList = async (req, res) => {
+  try {
+    const query = {
+      status: EventStatus.SHOW
+    }
+    const aggregate = [
+      {
+        $match: { ...query }
+      },
+      {
+        $lookup: {
+          from: 'userevents',
+          localField: '_id',
+          foreignField: 'eventId',
+          as: 'user'
+        },
+        
+      },{ $addFields: {user: {$size: "$user"}}}
+    ]
+    const event = await Event.aggregate(aggregate)
+    return res.json({
+      statusCode: 200,
+      data: event
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error })
+  }
+}
+
 const getEvent = async (req, res) => {
   try {
-    const { id: eventId } = req.query
+    const eventId = req.params.id
     const event = await Event.findById(eventId)
     if (event) {
-      if (event.status === EventStatus.HIDDEN) {
+      if (event.status === EventStatus.SHOW) {
         return res.json({
           statusCode: 200,
           data: event
@@ -78,6 +108,7 @@ const eventCreateAuto = async (req, res) => {
   }
 }
 module.exports = {
+  getEventList,
   getEvent,
   eventCreate,
   eventCreateAuto
