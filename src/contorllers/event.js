@@ -8,7 +8,21 @@ const getEventList = async (req, res) => {
     const query = {
       status: EventStatus.SHOW
     }
-    const event = await Event.find(query)
+    const aggregate = [
+      {
+        $match: { ...query }
+      },
+      {
+        $lookup: {
+          from: 'userevents',
+          localField: '_id',
+          foreignField: 'eventId',
+          as: 'user'
+        },
+        
+      },{ $addFields: {user: {$size: "$user"}}}
+    ]
+    const event = await Event.aggregate(aggregate)
     return res.json({
       statusCode: 200,
       data: event
