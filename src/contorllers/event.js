@@ -85,8 +85,9 @@ const eventCreate = async (req, res) => {
 
 const eventCreateAuto = async (req, res) => {
   try {
+    const random = Math.floor(Math.random() * 10)
     const data = {
-      name: 'test',
+      name: `All Thai Event ${random}`,
       status: EventStatus.SHOW,
       limit: 10
     }
