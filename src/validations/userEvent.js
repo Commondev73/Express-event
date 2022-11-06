@@ -7,7 +7,7 @@ const userEventCreate = {
     lastName: Joi.string().required(),
     phone: Joi.string().required(),
     eventId: Joi.string().required()
-  })
+  }).options({ allowUnknown: true })
 }
 
 const userEventUpdate = {
@@ -18,7 +18,7 @@ const userEventUpdate = {
     lastName: Joi.string().required(),
     phone: Joi.string().required(),
     seat: Joi.string().required()
-  })
+  }).options({ allowUnknown: true })
 }
 
 module.exports = {

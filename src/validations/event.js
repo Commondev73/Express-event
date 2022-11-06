@@ -7,7 +7,7 @@ const eventCreate = {
     startDate: Joi.date(),
     endDate: Joi.date(),
     limit: Joi.number().required()
-  })
+  }).options({ allowUnknown: true })
 }
 
 module.exports = {
