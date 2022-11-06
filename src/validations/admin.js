@@ -5,7 +5,7 @@ const signIn = {
   schema: Joi.object({
     userName: Joi.string().required(),
     password: Joi.string().required()
-  })
+  }).options({ allowUnknown: true })
 }
 
 const signUp = {
@@ -16,7 +16,7 @@ const signUp = {
     photo: Joi.string(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required()
-  })
+  }).options({ allowUnknown: true })
 }
 
 module.exports = {
