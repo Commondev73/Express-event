@@ -1,6 +1,6 @@
 # Express-event
 
-- [Next-event] (https://github.com/Commondev73/Next-event) (Next.js)
+- [Next-event](https://github.com/Commondev73/Next-event) (Next.js)
 
 ## `Installation`
 
