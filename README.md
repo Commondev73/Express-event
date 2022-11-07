@@ -36,3 +36,13 @@ $ npm start or npm run dev
 - GET    /api/user-event/list/:id
 - POST   /api/user-event/create
 - PUT    /api/user-event/update
+
+## `ENV`
+
+NODE_ENV = "development"
+HOST= "0.0.0.0"
+PORT= "8000"
+DB_URL= "mongodb://localhost:27017/test_pisitchai"
+SECRET_KEY= "H0noyg5sxGyNFmOYhQSN96UKroAWPaQLPD4vSxxtZYs"
+TOKEN_EXPIRE= "15m"
+REFRESH_TOKEN_EXPIRE= "30m"
